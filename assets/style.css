@@ -1,13 +1,20 @@
-body{
-color: blue;
-}
-
-#my_id{
-    color: blue;
+#openingpage{
+    text-align: center;
 }
 
 #timer{
+    position:fixed;
+    top: 0px;
+    right: 0px;
+}
+
+#highscore{
     position: fixed;
-    margin-bottom: 0;
-    margin-right: 0;
+    top: 0px;
+    left: 0px;
+}
+
+#startquiz{
+    background-color: blueviolet;
+    color: white;
 }
