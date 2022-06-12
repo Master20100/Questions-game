@@ -1,0 +1,13 @@
+body{
+color: blue;
+}
+
+#my_id{
+    color: blue;
+}
+
+#timer{
+    position: fixed;
+    margin-bottom: 0;
+    margin-right: 0;
+}
