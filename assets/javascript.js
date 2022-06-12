@@ -28,19 +28,25 @@ startQuizButton.addEventListener("click",function(){hider("openingpage")});
 startQuizButton.addEventListener("click",function(){document.querySelector("#questionsandchoices").children[0].style.display="block"});
 
 
-//function to trim long string into questions and answers array
-//since java script does not support functions that return multiple values
-//I put question and answers array both in an array
-//question is index of 0 and answers array is index of 1
+//function to trim long string into questions and answers
+//it will create an object which has for example question1 as the key and the value will be
+//another object that has every key as the answer, then the value true for the correct
+//answer 
 function questionsPreparer(fullScentence){
     const fullScentenceSplit = fullScentence.split("?");
     var question = fullScentenceSplit[0]+"?";
     var myAnswers = fullScentenceSplit[1].split(",");
-    var questionsAnswers = [];
-    questionsAnswers[0]=question;
-    questionsAnswers[1] = myAnswers;
+    var questionsAnswers = {};
+    var myAnswersObj = {};
+    for (let i = 0; i < myAnswers.length; i++) {
+        myAnswersObj[myAnswers[i]] = false;
+    }
+    
+    questionsAnswers[question]=myAnswersObj;
     return questionsAnswers;
 }
+questionsPreparer(questions["question1"]);
+
 //function to create a page for the questions and answers,
 //it returns hidden pages according to the number of questions in the
 //questions object.
@@ -49,25 +55,36 @@ function questionsAnswersPageCreator(questionsAnswers){
     document.getElementById("questionsandchoices").appendChild(article);
     var questionHeader = document.createElement('h1');
     article.appendChild(questionHeader);
-    questionHeader.innerHTML = questionsAnswers[0];
-    var myAnswersList = document.createElement('ol');
+    var myKey = Object.keys(questionsAnswers)[0];
+    questionHeader.innerHTML = myKey;
+    var myAnswerObj = questionsAnswers[myKey];
+    
 
-    for (let i = 0; i < questionsAnswers[1].length; i++) {
+
+    var myAnswersList = document.createElement('ol');
+    
+    for (const key in myAnswerObj) {
      var answerList = document.createElement('li');
-     answerList.innerHTML = questionsAnswers[1][i];
+     
+     answerList.innerHTML = key;
+
+     //here value will be 0, we can use value of 1 to the correct answer
+     answerList.value = myAnswerObj[key]; 
+     alert(answerList.innerHTML);
+     alert(answerList.value);
      myAnswersList.appendChild(answerList);       
     }
     article.appendChild(myAnswersList);
     //hide the article(contains questions and answers)
-    article.style.display = "none";
+    // article.style.display = "none";
 }
 
 
 
 questionsAnswersPageCreator(questionsPreparer(questions["question1"]));
-questionsAnswersPageCreator(questionsPreparer(questions["question2"]));
-questionsAnswersPageCreator(questionsPreparer(questions["question3"]));
-questionsAnswersPageCreator(questionsPreparer(questions["question4"]));
+// questionsAnswersPageCreator(questionsPreparer(questions["question2"]));
+// questionsAnswersPageCreator(questionsPreparer(questions["question3"]));
+// questionsAnswersPageCreator(questionsPreparer(questions["question4"]));
 
 
 //function to hide an html element based on id name
