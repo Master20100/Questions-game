@@ -18,3 +18,25 @@
     background-color: blueviolet;
     color: white;
 }
+
+button{
+    background-color: blue;
+    color: white;
+    text-align: left;
+    width: 150px;
+}
+
+section,article{
+position:fixed;
+right: 50%;
+}
+
+footer{
+    position: fixed;
+    bottom: 100px;
+    width:1000px;
+    border-bottom: 1px solid grey;
+    display: none;
+}
+
+

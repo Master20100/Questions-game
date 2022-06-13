@@ -1,3 +1,59 @@
+
+
+//questions are stored in an object with keys question1, question2 and so on
+var questions ={};
+questions["question1"] = "Arrays in javascript can be used to store ?numbers and strings,other arrays,booleans,all the above.4";
+questions["question2"] = "Commonly used data types do not include ?string,booleans,alerts,numbers.3";
+questions["question3"] = "A very quesful tool used during development and debugging for printing content to the debugger is ?javascript,terminal/bash,forloop,console/bash.4";
+questions["question4"] = "String values must be enclosed within?quotes,curely brackets,parenthesis,square brackets.1";
+
+
+
+var startQuizButton = document.getElementById("startquiz");
+startQuizButton.addEventListener("click",function(){hider("openingpage")});
+startQuizButton.addEventListener("click",function(){myTimer(60)});
+startQuizButton.addEventListener("click",function(){document.querySelector("#questionsandchoices").children[0].style.display="block"});
+for (let index = 0; index < document.getElementById("questionsandchoices").children.length; index++) {
+    
+}
+
+
+
+// document.querySelectorAll("button").addEventListener("click",function(){
+//     document.getElementById("#questionsandchoices").children[0].style.display = "none";
+//     document.getElementById("#questionsandchoices").children[1].style.display = "block";
+// })
+
+
+
+
+
+questionsAnswersPageCreator(questionsPreparer(questions["question1"]));
+questionsAnswersPageCreator(questionsPreparer(questions["question2"]));
+questionsAnswersPageCreator(questionsPreparer(questions["question3"]));
+questionsAnswersPageCreator(questionsPreparer(questions["question4"]));
+
+const wrapper = document.getElementById('questionsandchoices');
+wrapper.addEventListener('click', function myFunction(event){if(event.target.value){
+    document.querySelector("footer").style.display = "block";
+    document.querySelector("#wrong").style.display = "none";
+}});
+// function clicker(event){
+// if(event.target.value){
+//     document.querySelector("footer").display = "block";
+//     document.querySelector("#wrong").display = "none";
+// }}
+
+// document.querySelectorAll("article")[0].children[1].addEventListener("click",function(){alert(document.querySelectorAll("article")[0].children[1].value)});
+
+// document.querySelectorAll("article")[0].children[2].addEventListener("click",function(){alert("hiiii")});
+// document.querySelectorAll("article")[0].children[3].addEventListener("click",function(){alert("hiiii")});
+// document.querySelectorAll("article")[0].children[4].addEventListener("click",function(){alert("hiiii")});
+
+
+
+
+//function that creates a timer according to the seconds you specify
 function myTimer(mySeconds){
     var seconds = document.querySelector("#timer");
     var decrementSeconds = setInterval(
@@ -12,40 +68,37 @@ function myTimer(mySeconds){
 
 }
 
-myTimer(3000);
-
-//questions are stored in an object with keys question1, question2 and so on
-var questions ={};
-questions["question1"] = "Arrays in javascript can be used to store ?numbers and strings,other arrays,booleans,all the above";
-questions["question2"] = "Commonly used data types do not include ?string,booleans,alerts,numbers";
-questions["question3"] = "A very quesful tool used during developping and debugging?javascript,terminal,forloop,console/bash";
-questions["question4"] = "String values must be enclosed within?quotes,curely brackets,parenthesis,square brackets";
-
-
-
-var startQuizButton = document.getElementById("startquiz");
-startQuizButton.addEventListener("click",function(){hider("openingpage")});
-startQuizButton.addEventListener("click",function(){document.querySelector("#questionsandchoices").children[0].style.display="block"});
-
-
 //function to trim long string into questions and answers
 //it will create an object which has for example question1 as the key and the value will be
 //another object that has every key as the answer, then the value true for the correct
 //answer 
 function questionsPreparer(fullScentence){
-    const fullScentenceSplit = fullScentence.split("?");
+    const fullScentenceMinusAnswer = fullScentence.split(".");
+    const correctAnswer = fullScentenceMinusAnswer[1]-1;
+    const fullScentenceSplit = fullScentenceMinusAnswer[0].split("?");
     var question = fullScentenceSplit[0]+"?";
     var myAnswers = fullScentenceSplit[1].split(",");
     var questionsAnswers = {};
     var myAnswersObj = {};
     for (let i = 0; i < myAnswers.length; i++) {
-        myAnswersObj[myAnswers[i]] = false;
+        if(i === correctAnswer){
+            myAnswersObj[myAnswers[i]] = true;
+        }
+        else{
+            myAnswersObj[myAnswers[i]] = false;
+        }
     }
     
     questionsAnswers[question]=myAnswersObj;
     return questionsAnswers;
 }
-questionsPreparer(questions["question1"]);
+
+//function to hide an html element based on id name
+function hider(htmlidname){
+    var idName="#"+htmlidname;
+    var elementToHide = document.querySelector(idName);
+    elementToHide.style.display = "none";
+}
 
 //function to create a page for the questions and answers,
 //it returns hidden pages according to the number of questions in the
@@ -61,35 +114,17 @@ function questionsAnswersPageCreator(questionsAnswers){
     
 
 
-    var myAnswersList = document.createElement('ol');
+    // var myAnswersList = document.createElement('ol');
     
     for (const key in myAnswerObj) {
-     var answerList = document.createElement('li');
-     
+     var answerList = document.createElement('button');
+    answerList.style.display = "block";
+    
      answerList.innerHTML = key;
-
-     //here value will be 0, we can use value of 1 to the correct answer
-     answerList.value = myAnswerObj[key]; 
-     alert(answerList.innerHTML);
-     alert(answerList.value);
-     myAnswersList.appendChild(answerList);       
+     answerList.value = myAnswerObj[key];
+     
+     article.appendChild(answerList);       
     }
-    article.appendChild(myAnswersList);
     //hide the article(contains questions and answers)
-    // article.style.display = "none";
-}
-
-
-
-questionsAnswersPageCreator(questionsPreparer(questions["question1"]));
-// questionsAnswersPageCreator(questionsPreparer(questions["question2"]));
-// questionsAnswersPageCreator(questionsPreparer(questions["question3"]));
-// questionsAnswersPageCreator(questionsPreparer(questions["question4"]));
-
-
-//function to hide an html element based on id name
-function hider(htmlidname){
-    var idName="#"+htmlidname;
-    var elementToHide = document.querySelector(idName);
-    elementToHide.style.display = "none";
+    article.style.display = "none";
 }
