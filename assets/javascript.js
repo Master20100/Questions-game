@@ -7,11 +7,11 @@ questions["question2"] = "Commonly used data types do not include ?string,boolea
 questions["question3"] = "A very quesful tool used during development and debugging for printing content to the debugger is ?javascript,terminal/bash,forloop,console/bash.4";
 questions["question4"] = "String values must be enclosed within?quotes,curely brackets,parenthesis,square brackets.1";
 
-
+var myTime;
 
 var startQuizButton = document.getElementById("startquiz");
 startQuizButton.addEventListener("click",function(event){hider("openingpage");event.stopPropagation();});
-startQuizButton.addEventListener("click",function(event){var myTime =myTimer(60); event.stopPropagation();
+startQuizButton.addEventListener("click",function(event){myTime =myTimer(60); event.stopPropagation();
 });
 startQuizButton.addEventListener("click",function(event){  event.stopPropagation();
     document.querySelector("#questionsandchoices").children[0].style.display="block"});
@@ -40,10 +40,13 @@ wrapper.addEventListener('click', function myFunction(event){
        
     }
         else{
-            document.querySelector("#wrong").style.display = "block";
+            // document.querySelector("#wrong").style.display = "block";
             var x = document.querySelector("#timer").innerHTML ;
             
-            myTimer(x-10);        
+            // myTimer(x-10);        
+            clearInterval(myTime);
+            myTime = myTimer(x-10);
+
         }
         
     
@@ -77,6 +80,7 @@ function myTimer(mySeconds){
                 alert("You lost"); 
                 }
             },1000);
+            return decrementSeconds;
 }
 
 //function to trim long string into questions and answers
