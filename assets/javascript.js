@@ -10,19 +10,16 @@ questions["question4"] = "String values must be enclosed within?quotes,curely br
 
 
 var startQuizButton = document.getElementById("startquiz");
-startQuizButton.addEventListener("click",function(){hider("openingpage")});
-startQuizButton.addEventListener("click",function(){myTimer(60)});
-startQuizButton.addEventListener("click",function(){document.querySelector("#questionsandchoices").children[0].style.display="block"});
+startQuizButton.addEventListener("click",function(event){hider("openingpage");event.stopPropagation();});
+startQuizButton.addEventListener("click",function(event){var myTime =myTimer(60); event.stopPropagation();
+});
+startQuizButton.addEventListener("click",function(event){  event.stopPropagation();
+    document.querySelector("#questionsandchoices").children[0].style.display="block"});
 for (let index = 0; index < document.getElementById("questionsandchoices").children.length; index++) {
     
 }
 
 
-
-// document.querySelectorAll("button").addEventListener("click",function(){
-//     document.getElementById("#questionsandchoices").children[0].style.display = "none";
-//     document.getElementById("#questionsandchoices").children[1].style.display = "block";
-// })
 
 
 
@@ -33,22 +30,37 @@ questionsAnswersPageCreator(questionsPreparer(questions["question2"]));
 questionsAnswersPageCreator(questionsPreparer(questions["question3"]));
 questionsAnswersPageCreator(questionsPreparer(questions["question4"]));
 
-const wrapper = document.getElementById('questionsandchoices');
-wrapper.addEventListener('click', function myFunction(event){if(event.target.value){
-    document.querySelector("footer").style.display = "block";
-    document.querySelector("#wrong").style.display = "none";
-}});
-// function clicker(event){
-// if(event.target.value){
-//     document.querySelector("footer").display = "block";
-//     document.querySelector("#wrong").display = "none";
-// }}
+const wrapper = document.querySelector('#questionsandchoices');
+wrapper.addEventListener('click', function myFunction(event){
+    event.stopPropagation();
+    if(event.target.tagName == "BUTTON"){
 
-// document.querySelectorAll("article")[0].children[1].addEventListener("click",function(){alert(document.querySelectorAll("article")[0].children[1].value)});
+    if(event.target.value == "true"){
+        document.querySelector("#correct").style.display = "block";
+       
+    }
+        else{
+            document.querySelector("#wrong").style.display = "block";
+            var x = document.querySelector("#timer").innerHTML ;
+            
+            myTimer(x-10);        
+        }
+        
+    
+        
+        for (let index = 0; index < 4; index++) {
+            
+    if(window.getComputedStyle(document.querySelectorAll('article')[index]).display == 'block'){
+        
+        document.querySelectorAll('article')[index].style.display = "none";
+        document.querySelectorAll('article')[index+1].style.display = "block";
+        break;
+        
+    }
+         }
+    }
 
-// document.querySelectorAll("article")[0].children[2].addEventListener("click",function(){alert("hiiii")});
-// document.querySelectorAll("article")[0].children[3].addEventListener("click",function(){alert("hiiii")});
-// document.querySelectorAll("article")[0].children[4].addEventListener("click",function(){alert("hiiii")});
+    });
 
 
 
@@ -65,7 +77,6 @@ function myTimer(mySeconds){
                 alert("You lost"); 
                 }
             },1000);
-
 }
 
 //function to trim long string into questions and answers

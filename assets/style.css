@@ -36,6 +36,9 @@ footer{
     bottom: 100px;
     width:1000px;
     border-bottom: 1px solid grey;
+}
+
+#correct,#wrong{
     display: none;
 }
 
