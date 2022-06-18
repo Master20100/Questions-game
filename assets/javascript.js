@@ -1,69 +1,101 @@
 
-
 //questions are stored in an object with keys question1, question2 and so on
 var questions ={};
 questions["question1"] = "Arrays in javascript can be used to store ?numbers and strings,other arrays,booleans,all the above.4";
 questions["question2"] = "Commonly used data types do not include ?string,booleans,alerts,numbers.3";
 questions["question3"] = "A very quesful tool used during development and debugging for printing content to the debugger is ?javascript,terminal/bash,forloop,console/bash.4";
 questions["question4"] = "String values must be enclosed within?quotes,curely brackets,parenthesis,square brackets.1";
-
-var myTime;
-
-var startQuizButton = document.getElementById("startquiz");
-startQuizButton.addEventListener("click",function(event){hider("openingpage");event.stopPropagation();});
-startQuizButton.addEventListener("click",function(event){myTime =myTimer(60); event.stopPropagation();
-});
-startQuizButton.addEventListener("click",function(event){  event.stopPropagation();
-    document.querySelector("#questionsandchoices").children[0].style.display="block"});
-for (let index = 0; index < document.getElementById("questionsandchoices").children.length; index++) {
-    
-}
-
-
-
-
-
-
-
 questionsAnswersPageCreator(questionsPreparer(questions["question1"]));
 questionsAnswersPageCreator(questionsPreparer(questions["question2"]));
 questionsAnswersPageCreator(questionsPreparer(questions["question3"]));
 questionsAnswersPageCreator(questionsPreparer(questions["question4"]));
 
-const wrapper = document.querySelector('#questionsandchoices');
-wrapper.addEventListener('click', function myFunction(event){
-    event.stopPropagation();
-    if(event.target.tagName == "BUTTON"){
+var myTime;
+var currentArticle = 0 ;
+var score= 0;
+var articleCount = document.querySelectorAll("article").length;
+function hider(currentArticle){
+    document.querySelector("section").children[currentArticle].style.display = "none";
+    document.querySelector("section").children[currentArticle+1].style.display = "block";
+    
+}
+    
+    // }
+    
+    
+    // var myTime;
+    
+    // var startQuizButton = document.getElementById("startquiz");
+    // startQuizButton.addEventListener("click",function(event){hider("openingpage");event.stopPropagation();});
+    // startQuizButton.addEventListener("click",function(event){myTime =myTimer(60); event.stopPropagation();
+    // });
+    // startQuizButton.addEventListener("click",function(event){  event.stopPropagation();
+    //     document.querySelector("#questionsandchoices").children[0].style.display="block"});
+    // for (let index = 0; index < document.getElementById("questionsandchoices").children.length; index++) {
+        
+        // }
+        
+        
+        
+        
+        
 
-    if(event.target.value == "true"){
-        document.querySelector("#correct").style.display = "block";
-       
-    }
+        
+        const wrapper = document.querySelectorAll("button");
+        wrapper.forEach(button=>{button.addEventListener('click', function(event){
+            hider(currentArticle);
+            currentArticle++;
+        if(event.target.id=='startquiz'){
+            myTime = myTimer(60);
+        }
+        
         else{
-            // document.querySelector("#wrong").style.display = "block";
+        document.querySelector("#correct").style.display = "none";
+        document.querySelector("#wrong").style.display = "none";
+
+       
+       if(event.target.value == "true"){
+        document.querySelector("#correct").style.display = "block";
+         score +=10;
+         alert(score);
+       }
+        else{
+            // if(window.getComputedStyle(document.getElementById("gameFinish")).display== "block"){
+            // clearInterval(myTime);
+            // }
             var x = document.querySelector("#timer").innerHTML ;
             
             // myTimer(x-10);        
             clearInterval(myTime);
             myTime = myTimer(x-10);
-
+            document.querySelector("#wrong").style.display = "block";
         }
-        
+        event.target.style.display = "none";
     
-        
-        for (let index = 0; index < 4; index++) {
-            
-    if(window.getComputedStyle(document.querySelectorAll('article')[index]).display == 'block'){
-        
-        document.querySelectorAll('article')[index].style.display = "none";
-        document.querySelectorAll('article')[index+1].style.display = "block";
-        break;
-        
     }
-         }
+}
+    )
+        
+    //     for (let index = 0; index < 4; index++) {
+            
+    // if(window.getComputedStyle(document.querySelectorAll('article')[index]).display == 'block'){
+        
+    //     document.querySelectorAll('article')[index].style.display = "none";
+    //     document.querySelectorAll('article')[index+1].style.display = "block";
+    //     alert(index);
+    //     if(index == 2){
+    //         alert("aaaaaa");
+    //         document.querySelectorAll("#gameFinish").style.display = "block";}
+    //         break;
+    //          }
+        
+    // }
+
+        
+
     }
 
-    });
+    );
 
 
 
@@ -77,7 +109,8 @@ function myTimer(mySeconds){
             seconds.innerHTML=mySeconds;
             if(mySeconds == 0){
                 clearInterval(decrementSeconds);
-                alert("You lost"); 
+                alert("You lost");
+                document.getElementById("finalScore").innerHTML = score;
                 }
             },1000);
             return decrementSeconds;
@@ -109,31 +142,31 @@ function questionsPreparer(fullScentence){
 }
 
 //function to hide an html element based on id name
-function hider(htmlidname){
-    var idName="#"+htmlidname;
-    var elementToHide = document.querySelector(idName);
-    elementToHide.style.display = "none";
-}
+// function hider(htmlidname){
+//     var idName="#"+htmlidname;
+//     var elementToHide = document.querySelector(idName);
+//     elementToHide.style.display = "none";
+// }
 
 //function to create a page for the questions and answers,
 //it returns hidden pages according to the number of questions in the
 //questions object.
 function questionsAnswersPageCreator(questionsAnswers){
     var article = document.createElement('article');
-    document.getElementById("questionsandchoices").appendChild(article);
+    var parentNode = document.getElementById("questionsandchoices");
+    var lastNode = document.getElementById("gameFinish");
+    parentNode.insertBefore(article,lastNode) ;
     var questionHeader = document.createElement('h1');
     article.appendChild(questionHeader);
     var myKey = Object.keys(questionsAnswers)[0];
     questionHeader.innerHTML = myKey;
     var myAnswerObj = questionsAnswers[myKey];
     
-
-
     // var myAnswersList = document.createElement('ol');
     
     for (const key in myAnswerObj) {
      var answerList = document.createElement('button');
-    answerList.style.display = "block";
+     answerList.style.display = "block";
     
      answerList.innerHTML = key;
      answerList.value = myAnswerObj[key];
@@ -143,3 +176,5 @@ function questionsAnswersPageCreator(questionsAnswers){
     //hide the article(contains questions and answers)
     article.style.display = "none";
 }
+
+

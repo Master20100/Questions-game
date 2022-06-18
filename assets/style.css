@@ -27,7 +27,7 @@ button{
 }
 
 section,article{
-position:fixed;
+position:absolute;
 right: 50%;
 }
 
@@ -38,7 +38,7 @@ footer{
     border-bottom: 1px solid grey;
 }
 
-#correct,#wrong{
+#correct,#wrong,#gameFinish{
     display: none;
 }
 

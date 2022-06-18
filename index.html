@@ -6,24 +6,30 @@
 
 </head>
 <body>
-<section id="highscore">View High Scores</section>
-<section id="timer"></section>
-<section id="openingpage">
-    <h1>Coding quiz challenge</h1>
-    <p>Try to answer the following code-related questions within the time limit.<br>
-        Keep in mind that incorrect answers will penalize your score/time<br>
-        by ten seconds!</p>
+<header> 
+   <div id="highscore">View High Scores</div>
+   <div id="timer"></div>
+</header>
+<section id="questionsandchoices">
+    <article id="openingPage">
+        <h1>Coding quiz challenge</h1>
+        <p>Try to answer the following code-related questions within the time limit.<br>
+            Keep in mind that incorrect answers will penalize your score/time<br>
+            by ten seconds!</p>
         <button id="startquiz">Start Quiz</button>
-</section>
-<section id="questionsandchoices" class="TRIALL">
+    </article>
     <!-- <article>
         <h1></h1>
         <button></button>
         <button></button>
     </article> -->
-    </section>
-
-
+    
+    <article id="gameFinish">
+        All done!<br>
+        Your final score is <span id="finalScore"></span><br>
+        Enter initials:<span id="initials"></span>
+    </article>
+</section>
 <footer>
 <h3 id="correct">CORRECT!</h3>
 <h3 id="wrong">WRONG!</h3>
