@@ -13,183 +13,126 @@ questionsAnswersPageCreator(questionsPreparer(questions["question4"]));
 var myTime;
 var currentArticle = 0 ;
 var score= 0;
-var articleCount = document.querySelectorAll("article").length;
+var articleCount = document.querySelectorAll("article").length-1;
+document.getElementById("formSubmittion").addEventListener("click", function(event){
+    event.preventDefault();
+    const user = {
+        name: document.getElementById("formSubmittion").value,
+        score: score,
+    }
+    
+    window.localStorage.setItem('user', JSON.stringify(user));
+    alert(window.localStorage.getItem('user'));
+    
+    
+  });
 
 function hider(currentArticle){
     document.querySelector("section").children[currentArticle].style.display = "none";
     document.querySelector("section").children[currentArticle+1].style.display = "block";
     
 }
-
-
-
-// }
-
-
-// var myTime;
-
-// var startQuizButton = document.getElementById("startquiz");
-// startQuizButton.addEventListener("click",function(event){hider("openingpage");event.stopPropagation();});
-// startQuizButton.addEventListener("click",function(event){myTime =myTimer(60); event.stopPropagation();
-// });
-// startQuizButton.addEventListener("click",function(event){  event.stopPropagation();
-//     document.querySelector("#questionsandchoices").children[0].style.display="block"});
-// for (let index = 0; index < document.getElementById("questionsandchoices").children.length; index++) {
-    
-    // }
-    
-    
-    
-    
-    
-    
-    
-    const wrapper = document.querySelectorAll("button");
-    wrapper.forEach(button=>{button.addEventListener('click', function(event){
-        hider(currentArticle);
-        currentArticle++;
-        if(event.target.id=='startquiz'){
-            myTime = myTimer(60);
-        }
-        
+const wrapper = document.querySelectorAll("button");
+wrapper.forEach(button=>{button.addEventListener('click', function(event){
+    if(event.target.id=='startquiz'){
+        myTime = myTimer(60,gameOver);}    
         else{
             document.querySelector("#correct").style.display = "none";
             document.querySelector("#wrong").style.display = "none";
-            
-            
             if(event.target.value == "true"){
                 document.querySelector("#correct").style.display = "block";
                 score +=10;
-                alert(score);
             }
             else{
-                // if(window.getComputedStyle(document.getElementById("gameFinish")).display== "block"){
-                    // clearInterval(myTime);
-                    // }
-                    var x = document.querySelector("#timer").innerHTML ;
-                    
-                    // myTimer(x-10);        
-                    clearInterval(myTime);
-                    myTime = myTimer(x-10);
-                    document.querySelector("#wrong").style.display = "block";
-                }
-                event.target.style.display = "none";
-                
-                // if(currentArticle == articleCount-1){
-                //     clearInterval(myTime);
-                //     myTime = 0;
-                // }
-                gameOver();
+                var x = document.querySelector("#timer").innerHTML ;
+                clearInterval(myTime);
+                myTime = myTimer(x-10,gameOver);
+                document.querySelector("#wrong").style.display = "block"; 
             }
+            document.getElementById("finalScore").innerHTML = score;
+            gameOver();
         }
-        )
-        
-        //     for (let index = 0; index < 4; index++) {
+        hider(currentArticle);
+        currentArticle++; 
+    }
+    
+    )              
+}
+
+);
+
+//function that creates a timer according to the seconds you specify
+function myTimer(mySeconds,functionToBeRepeated){
+    var seconds = document.querySelector("#timer");
+    var decrementSeconds = setInterval(
+        function(){
+            mySeconds--;
+            seconds.innerHTML=mySeconds;
+            functionToBeRepeated();
+        },1000);
+        return decrementSeconds;
+    }
+    function gameOver(){
+        if(document.querySelector("#timer").innerHTML == 0 || currentArticle == articleCount)
+        {
+            clearInterval(myTime);
+            document.querySelector("#timer").innerHTML = 0;}
             
-            // if(window.getComputedStyle(document.querySelectorAll('article')[index]).display == 'block'){
-                
-                //     document.querySelectorAll('article')[index].style.display = "none";
-                //     document.querySelectorAll('article')[index+1].style.display = "block";
-                //     alert(index);
-                //     if(index == 2){
-                    //         alert("aaaaaa");
-                    //         document.querySelectorAll("#gameFinish").style.display = "block";}
-                    //         break;
-                    //          }
-                    
-                    // }
-                    
-                    
-                    
+        }
+        
+        //function to trim long string into questions and answers
+        //it will create an object which has for example question1 as the key and the value will be
+        //another object that has every key as the answer, then the value true for the correct
+        //answer 
+        function questionsPreparer(fullScentence){
+            const fullScentenceMinusAnswer = fullScentence.split(".");
+            const correctAnswer = fullScentenceMinusAnswer[1]-1;
+            const fullScentenceSplit = fullScentenceMinusAnswer[0].split("?");
+            var question = fullScentenceSplit[0]+"?";
+            var myAnswers = fullScentenceSplit[1].split(",");
+            var questionsAnswers = {};
+            var myAnswersObj = {};
+            for (let i = 0; i < myAnswers.length; i++) {
+                if(i === correctAnswer){
+                    myAnswersObj[myAnswers[i]] = true;
                 }
-                
-                );
-                
-                
-                
-                
-                //function that creates a timer according to the seconds you specify
-                function myTimer(mySeconds){
-                    var seconds = document.querySelector("#timer");
-                    var decrementSeconds = setInterval(
-                        function(){
-                            mySeconds--;
-                            seconds.innerHTML=mySeconds;
-                            
-                            // if(mySeconds == 0){
-                                //     clearInterval(decrementSeconds);
-                                //     alert("You lost");
-                                //     document.getElementById("finalScore").innerHTML = score;
-                                //     }
-                            },1000);
-                            return decrementSeconds;
-                        }
-                        function gameOver(){
-                            if(currentArticle == articleCount-1 || document.querySelector("#timer").innerHTML == 0){
-                                clearInterval(myTime);
-                                document.querySelector("#timer").innerHTML = 0;                            }
-                           
-                        }
-                        
-                        //function to trim long string into questions and answers
-                        //it will create an object which has for example question1 as the key and the value will be
-//another object that has every key as the answer, then the value true for the correct
-//answer 
-function questionsPreparer(fullScentence){
-    const fullScentenceMinusAnswer = fullScentence.split(".");
-    const correctAnswer = fullScentenceMinusAnswer[1]-1;
-    const fullScentenceSplit = fullScentenceMinusAnswer[0].split("?");
-    var question = fullScentenceSplit[0]+"?";
-    var myAnswers = fullScentenceSplit[1].split(",");
-    var questionsAnswers = {};
-    var myAnswersObj = {};
-    for (let i = 0; i < myAnswers.length; i++) {
-        if(i === correctAnswer){
-            myAnswersObj[myAnswers[i]] = true;
+                else{
+                    myAnswersObj[myAnswers[i]] = false;
+                }
+            }
+            
+            questionsAnswers[question]=myAnswersObj;
+            return questionsAnswers;
         }
-        else{
-            myAnswersObj[myAnswers[i]] = false;
+        
+        //function to hide an html element based on id name
+        
+        
+        //function to create a page for the questions and answers,
+        //it returns hidden pages according to the number of questions in the
+        //questions object.
+        function questionsAnswersPageCreator(questionsAnswers){
+            var article = document.createElement('article');
+            var parentNode = document.getElementById("questionsandchoices");
+            var lastNode = document.getElementById("gameFinish");
+            parentNode.insertBefore(article,lastNode) ;
+            var questionHeader = document.createElement('h1');
+            article.appendChild(questionHeader);
+            var myKey = Object.keys(questionsAnswers)[0];
+            questionHeader.innerHTML = myKey;
+            var myAnswerObj = questionsAnswers[myKey];
+            
+            
+            for (const key in myAnswerObj) {
+                var answerList = document.createElement('button');
+                answerList.style.display = "block";
+                
+                answerList.innerHTML = key;
+                answerList.value = myAnswerObj[key];
+                
+                article.appendChild(answerList);       
+            }
+            //hide the article(contains questions and answers)
+            article.style.display = "none";
         }
-    }
-    
-    questionsAnswers[question]=myAnswersObj;
-    return questionsAnswers;
-}
-
-//function to hide an html element based on id name
-// function hider(htmlidname){
-//     var idName="#"+htmlidname;
-//     var elementToHide = document.querySelector(idName);
-//     elementToHide.style.display = "none";
-// }
-
-//function to create a page for the questions and answers,
-//it returns hidden pages according to the number of questions in the
-//questions object.
-function questionsAnswersPageCreator(questionsAnswers){
-    var article = document.createElement('article');
-    var parentNode = document.getElementById("questionsandchoices");
-    var lastNode = document.getElementById("gameFinish");
-    parentNode.insertBefore(article,lastNode) ;
-    var questionHeader = document.createElement('h1');
-    article.appendChild(questionHeader);
-    var myKey = Object.keys(questionsAnswers)[0];
-    questionHeader.innerHTML = myKey;
-    var myAnswerObj = questionsAnswers[myKey];
-    
-    // var myAnswersList = document.createElement('ol');
-    
-    for (const key in myAnswerObj) {
-     var answerList = document.createElement('button');
-     answerList.style.display = "block";
-    
-     answerList.innerHTML = key;
-     answerList.value = myAnswerObj[key];
-     
-     article.appendChild(answerList);       
-    }
-    //hide the article(contains questions and answers)
-    article.style.display = "none";
-}
-
-
+        

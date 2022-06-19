@@ -8,7 +8,7 @@
 <body>
 <header> 
    <div id="highscore">View High Scores</div>
-   <div id="timer"></div>
+   <div id="timer">-</div>
 </header>
 <section id="questionsandchoices">
     <article id="openingPage">
@@ -26,9 +26,23 @@
     
     <article id="gameFinish">
         All done!<br>
-        Your final score is <span id="finalScore"></span><br>
-        Enter initials:<span id="initials"></span>
+        Your final score is <span id="finalScore"></span><br>        
+        <form  action="/action_page.php">
+            <label for="fname">Enter initials:</label>
+            <input type="text" id="initials" name="initials">
+            <button id="formSubmittion" type="submit" value="Submit">Submit</button>
+          </form>
+
+
     </article>
+
+<article id="highScores">
+    <button>Go back</button>   
+    <button>Clear high scores</button>
+
+</article>
+
+
 </section>
 <footer>
 <h3 id="correct">CORRECT!</h3>

@@ -38,7 +38,7 @@ footer{
     border-bottom: 1px solid grey;
 }
 
-#correct,#wrong,#gameFinish{
+#correct,#wrong,#gameFinish,#highScores{
     display: none;
 }
 
