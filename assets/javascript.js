@@ -1,5 +1,9 @@
 
-//questions are stored in an object with keys question1, question2 and so on
+
+//questions are stored in an object with keys question1, question2 and so on.
+//each key has a value of another object. That object has key as answer
+//and value as true or false depending on if the answer is correct or not
+
 var questions ={};
 questions["question1"] = "Arrays in javascript can be used to store ?numbers and strings,other arrays,booleans,all the above.4";
 questions["question2"] = "Commonly used data types do not include ?string,booleans,alerts,numbers.3";
@@ -13,7 +17,7 @@ questionsAnswersPageCreator(questionsPreparer(questions["question4"]));
 var myTime;
 var currentArticle = 0 ;
 var score= 0;
-var articleCount = document.querySelectorAll("article").length-1;
+var articleCount = document.querySelectorAll("article").length-2;
 document.getElementById("formSubmittion").addEventListener("click", function(event){
     event.preventDefault();
     const user = {
@@ -28,6 +32,7 @@ document.getElementById("formSubmittion").addEventListener("click", function(eve
     document.getElementById("highScores").appendChild(newParagraph);
   });
 
+//this function gets 
 function hider(currentArticle){
     document.querySelector("section").children[currentArticle].style.display = "none";
     document.querySelector("section").children[currentArticle+1].style.display = "block";
@@ -51,7 +56,6 @@ wrapper.forEach(button=>{button.addEventListener('click', function(event){
                 document.querySelector("#wrong").style.display = "block"; 
             }
             document.getElementById("finalScore").innerHTML = score;
-            gameOver();
         }
         hider(currentArticle);
         currentArticle++; 
@@ -73,11 +77,17 @@ function myTimer(mySeconds,functionToBeRepeated){
         },1000);
         return decrementSeconds;
     }
-    function gameOver(){
-        if(document.querySelector("#timer").innerHTML == 0 || currentArticle == articleCount)
+function gameOver(){
+        if(document.querySelector("#timer").innerHTML <= 0 || 
+          currentArticle == articleCount)
         {
             clearInterval(myTime);
-            document.querySelector("#timer").innerHTML = 0;}
+            document.querySelectorAll("article")[currentArticle].style.display = "none";
+            document.getElementById("gameFinish").style.display = "block";
+            document.querySelector("#timer").innerHTML = 0;
+
+            
+        }
             
         }
         
