@@ -6,51 +6,53 @@
 
 </head>
 <body>
-<header> 
-   <div id="highscore">View High Scores</div>
-   <div id="timer">-</div>
-</header>
-<section id="questionsandchoices">
-    <article id="openingPage">
-        <h1>Coding quiz challenge</h1>
-        <p>Try to answer the following code-related questions within the time limit.<br>
-            Keep in mind that incorrect answers will penalize your score/time<br>
-            by ten seconds!</p>
-        <button id="startquiz">Start Quiz</button>
-    </article>
-    <!-- <article>
-        <h1></h1>
-        <button></button>
-        <button></button>
-    </article> -->
-    
-    <article id="gameFinish">
-        All done!<br>
-        Your final score is <span id="finalScore"></span><br>        
-        <form  action="/action_page.php">
-            <label for="fname">Enter initials:</label>
-            <input type="text" id="initials" name="initials">
-            <button id="formSubmittion" type="submit" value="Submit">Submit</button>
-          </form>
-
-
-    </article>
-
-<article id="highScores">
-    <button>Go back</button>   
-    <button>Clear high scores</button>
-
-</article>
-
-
-</section>
-<footer>
-<h3 id="correct">CORRECT!</h3>
-<h3 id="wrong">WRONG!</h3>
-</footer>
-
-
-<script src="assets/javascript.js"></script>
-
-</body>
-</html>
+    <header> 
+        <div id="highscore">View High Scores</div>
+        <div id="timer">-</div>
+    </header>
+    <section id="questionsandchoices">
+        <article id="openingPage">
+            <h1>Coding quiz challenge</h1>
+            <p>Try to answer the following code-related questions within the time limit.<br>
+                Keep in mind that incorrect answers will penalize your score/time<br>
+                by ten seconds!</p>
+                <button id="startquiz">Start Quiz</button>
+            </article>
+            <!-- <article>
+                <h1></h1>
+                <button></button>
+                <button></button>
+            </article> -->
+            
+            <article id="gameFinish">
+                All done!<br>
+                Your final score is <span id="finalScore"></span><br>        
+                <form  action="/action_page.php">
+                    <label for="fname">Enter initials:</label>
+                    <input type="text" id="initials" name="initials">
+                    <button id="formSubmittion" type="submit" value="Submit">Submit</button>
+                </form>
+                
+                
+            </article>
+            
+            <article id="highScores">
+                High scores
+                <p id="scoreDisplay"></p>
+                <button id="reset">Go back</button>   
+                <button id="scoresClear">Clear high scores</button>
+                
+            </article>
+            
+            
+        </section>
+        <footer>
+            <h3 id="correct">CORRECT!</h3>
+            <h3 id="wrong">WRONG!</h3>
+        </footer>
+        
+        
+        
+        <script src="assets/javascript.js"></script>
+    </body>
+    </html>

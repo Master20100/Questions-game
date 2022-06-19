@@ -4,6 +4,13 @@
 //each key has a value of another object. That object has key as answer
 //and value as true or false depending on if the answer is correct or not
 
+document.getElementById("highscore").addEventListener("click",function(){
+    clearInterval(myTime);
+    document.querySelector("#timer").innerHTML = 0;
+    document.querySelectorAll("article").forEach((article)=>article.style.display="none");
+    document.getElementById("highScores").style.display = "block";
+})
+
 var questions ={};
 questions["question1"] = "Arrays in javascript can be used to store ?numbers and strings,other arrays,booleans,all the above.4";
 questions["question2"] = "Commonly used data types do not include ?string,booleans,alerts,numbers.3";
@@ -18,19 +25,35 @@ var myTime;
 var currentArticle = 0 ;
 var score= 0;
 var articleCount = document.querySelectorAll("article").length-2;
+var scores = {};
+var user;
+var previousScoreKey = "";
+var previousScore = 0 ;
 document.getElementById("formSubmittion").addEventListener("click", function(event){
     event.preventDefault();
-    const user = {
-        user: document.getElementById("initials").value,
-        hisscore: score
-    }
-    
+    // const user = {
+    //     user: document.getElementById("initials").value,
+    //     hisscore: score
+    // }
+    // scores = {user:hisscore};
+    user = document.getElementById("initials").value;
+    scores[user]= score;
+    localStorage.setItem(user,score);
+    for (let index = 0; index < localStorage.length; index++) {
+           var key = localStorage.key(index);
+           var value = localStorage[key];
+           if(previousScoreKey == ""){
+               key = previousScoreKey;
+               previousScore = value
+           }
+           else{
+               
 
-    window.localStorage.setItem('user', JSON.stringify(user));
-    var newParagraph = document.createElement('p');
-    newParagraph.innerHTML = window.localStorage.getItem('user');
-    document.getElementById("highScores").appendChild(newParagraph);
-  });
+           }
+           document.getElementById("scoreDisplay").innerHTML = key +"-"+value;
+    }
+
+    document.getElementById("scoreDisplay").innerHTML = localStorage.getItem()});
 
 //this function gets 
 function hider(currentArticle){
@@ -41,24 +64,40 @@ function hider(currentArticle){
 const wrapper = document.querySelectorAll("button");
 wrapper.forEach(button=>{button.addEventListener('click', function(event){
     if(event.target.id=='startquiz'){
-        myTime = myTimer(60,gameOver);}    
-        else{
+        myTime = myTimer(60,gameOver);
+        hider(currentArticle);
+        currentArticle++; }
+
+    else if(event.target.id=='scoresClear'){
+        localStorage.clear();
+    }
+
+
+    else if(event.target.id == 'reset'){
+        myTime="0";
+        currentArticle = 0;
+        score= 0;
+        document.getElementById("highScores").style.display = "none";
+        document.querySelector("#openingPage").style.display = "block";
+    }
+
+    else{
             document.querySelector("#correct").style.display = "none";
             document.querySelector("#wrong").style.display = "none";
             if(event.target.value == "true"){
                 document.querySelector("#correct").style.display = "block";
                 score +=10;
             }
-            else{
+            else if(event.target.value == "false"){
                 var x = document.querySelector("#timer").innerHTML ;
                 clearInterval(myTime);
                 myTime = myTimer(x-10,gameOver);
                 document.querySelector("#wrong").style.display = "block"; 
             }
             document.getElementById("finalScore").innerHTML = score;
+            hider(currentArticle);
+            currentArticle++; 
         }
-        hider(currentArticle);
-        currentArticle++; 
     }
     
     )              
