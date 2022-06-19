@@ -17,14 +17,15 @@ var articleCount = document.querySelectorAll("article").length-1;
 document.getElementById("formSubmittion").addEventListener("click", function(event){
     event.preventDefault();
     const user = {
-        name: document.getElementById("formSubmittion").value,
-        score: score,
+        user: document.getElementById("initials").value,
+        hisscore: score
     }
     
+
     window.localStorage.setItem('user', JSON.stringify(user));
-    alert(window.localStorage.getItem('user'));
-    
-    
+    var newParagraph = document.createElement('p');
+    newParagraph.innerHTML = window.localStorage.getItem('user');
+    document.getElementById("highScores").appendChild(newParagraph);
   });
 
 function hider(currentArticle){
