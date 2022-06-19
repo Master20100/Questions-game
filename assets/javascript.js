@@ -14,110 +14,125 @@ var myTime;
 var currentArticle = 0 ;
 var score= 0;
 var articleCount = document.querySelectorAll("article").length;
+
 function hider(currentArticle){
     document.querySelector("section").children[currentArticle].style.display = "none";
     document.querySelector("section").children[currentArticle+1].style.display = "block";
     
 }
+
+
+
+// }
+
+
+// var myTime;
+
+// var startQuizButton = document.getElementById("startquiz");
+// startQuizButton.addEventListener("click",function(event){hider("openingpage");event.stopPropagation();});
+// startQuizButton.addEventListener("click",function(event){myTime =myTimer(60); event.stopPropagation();
+// });
+// startQuizButton.addEventListener("click",function(event){  event.stopPropagation();
+//     document.querySelector("#questionsandchoices").children[0].style.display="block"});
+// for (let index = 0; index < document.getElementById("questionsandchoices").children.length; index++) {
     
     // }
     
     
-    // var myTime;
     
-    // var startQuizButton = document.getElementById("startquiz");
-    // startQuizButton.addEventListener("click",function(event){hider("openingpage");event.stopPropagation();});
-    // startQuizButton.addEventListener("click",function(event){myTime =myTimer(60); event.stopPropagation();
-    // });
-    // startQuizButton.addEventListener("click",function(event){  event.stopPropagation();
-    //     document.querySelector("#questionsandchoices").children[0].style.display="block"});
-    // for (let index = 0; index < document.getElementById("questionsandchoices").children.length; index++) {
-        
-        // }
-        
-        
-        
-        
-        
-
-        
-        const wrapper = document.querySelectorAll("button");
-        wrapper.forEach(button=>{button.addEventListener('click', function(event){
-            hider(currentArticle);
-            currentArticle++;
+    
+    
+    
+    
+    const wrapper = document.querySelectorAll("button");
+    wrapper.forEach(button=>{button.addEventListener('click', function(event){
+        hider(currentArticle);
+        currentArticle++;
         if(event.target.id=='startquiz'){
             myTime = myTimer(60);
         }
         
         else{
-        document.querySelector("#correct").style.display = "none";
-        document.querySelector("#wrong").style.display = "none";
-
-       
-       if(event.target.value == "true"){
-        document.querySelector("#correct").style.display = "block";
-         score +=10;
-         alert(score);
-       }
-        else{
-            // if(window.getComputedStyle(document.getElementById("gameFinish")).display== "block"){
-            // clearInterval(myTime);
-            // }
-            var x = document.querySelector("#timer").innerHTML ;
+            document.querySelector("#correct").style.display = "none";
+            document.querySelector("#wrong").style.display = "none";
             
-            // myTimer(x-10);        
-            clearInterval(myTime);
-            myTime = myTimer(x-10);
-            document.querySelector("#wrong").style.display = "block";
-        }
-        event.target.style.display = "none";
-    
-    }
-}
-    )
-        
-    //     for (let index = 0; index < 4; index++) {
             
-    // if(window.getComputedStyle(document.querySelectorAll('article')[index]).display == 'block'){
-        
-    //     document.querySelectorAll('article')[index].style.display = "none";
-    //     document.querySelectorAll('article')[index+1].style.display = "block";
-    //     alert(index);
-    //     if(index == 2){
-    //         alert("aaaaaa");
-    //         document.querySelectorAll("#gameFinish").style.display = "block";}
-    //         break;
-    //          }
-        
-    // }
-
-        
-
-    }
-
-    );
-
-
-
-
-//function that creates a timer according to the seconds you specify
-function myTimer(mySeconds){
-    var seconds = document.querySelector("#timer");
-    var decrementSeconds = setInterval(
-        function(){
-            mySeconds--;
-            seconds.innerHTML=mySeconds;
-            if(mySeconds == 0){
-                clearInterval(decrementSeconds);
-                alert("You lost");
-                document.getElementById("finalScore").innerHTML = score;
+            if(event.target.value == "true"){
+                document.querySelector("#correct").style.display = "block";
+                score +=10;
+                alert(score);
+            }
+            else{
+                // if(window.getComputedStyle(document.getElementById("gameFinish")).display== "block"){
+                    // clearInterval(myTime);
+                    // }
+                    var x = document.querySelector("#timer").innerHTML ;
+                    
+                    // myTimer(x-10);        
+                    clearInterval(myTime);
+                    myTime = myTimer(x-10);
+                    document.querySelector("#wrong").style.display = "block";
                 }
-            },1000);
-            return decrementSeconds;
-}
-
-//function to trim long string into questions and answers
-//it will create an object which has for example question1 as the key and the value will be
+                event.target.style.display = "none";
+                
+                // if(currentArticle == articleCount-1){
+                //     clearInterval(myTime);
+                //     myTime = 0;
+                // }
+                gameOver();
+            }
+        }
+        )
+        
+        //     for (let index = 0; index < 4; index++) {
+            
+            // if(window.getComputedStyle(document.querySelectorAll('article')[index]).display == 'block'){
+                
+                //     document.querySelectorAll('article')[index].style.display = "none";
+                //     document.querySelectorAll('article')[index+1].style.display = "block";
+                //     alert(index);
+                //     if(index == 2){
+                    //         alert("aaaaaa");
+                    //         document.querySelectorAll("#gameFinish").style.display = "block";}
+                    //         break;
+                    //          }
+                    
+                    // }
+                    
+                    
+                    
+                }
+                
+                );
+                
+                
+                
+                
+                //function that creates a timer according to the seconds you specify
+                function myTimer(mySeconds){
+                    var seconds = document.querySelector("#timer");
+                    var decrementSeconds = setInterval(
+                        function(){
+                            mySeconds--;
+                            seconds.innerHTML=mySeconds;
+                            
+                            // if(mySeconds == 0){
+                                //     clearInterval(decrementSeconds);
+                                //     alert("You lost");
+                                //     document.getElementById("finalScore").innerHTML = score;
+                                //     }
+                            },1000);
+                            return decrementSeconds;
+                        }
+                        function gameOver(){
+                            if(currentArticle == articleCount-1 || document.querySelector("#timer").innerHTML == 0){
+                                clearInterval(myTime);
+                                document.querySelector("#timer").innerHTML = 0;                            }
+                           
+                        }
+                        
+                        //function to trim long string into questions and answers
+                        //it will create an object which has for example question1 as the key and the value will be
 //another object that has every key as the answer, then the value true for the correct
 //answer 
 function questionsPreparer(fullScentence){
