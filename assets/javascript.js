@@ -1,8 +1,6 @@
 
 
-//questions are stored in an object with keys question1, question2 and so on.
-//each key has a value of another object. That object has key as answer
-//and value as true or false depending on if the answer is correct or not
+
 
 document.getElementById("highscore").addEventListener("click",function(){
     clearInterval(myTime);
@@ -11,6 +9,10 @@ document.getElementById("highscore").addEventListener("click",function(){
     document.getElementById("highScores").style.display = "block";
 })
 
+
+//questions are stored in an object with keys question1, question2 and so on.
+//each key has a value of another object. That object has key as answer
+//and value as true or false depending on if the answer is correct or not
 var questions ={};
 questions["question1"] = "Arrays in javascript can be used to store ?numbers and strings,other arrays,booleans,all the above.4";
 questions["question2"] = "Commonly used data types do not include ?string,booleans,alerts,numbers.3";
@@ -21,58 +23,59 @@ questionsAnswersPageCreator(questionsPreparer(questions["question2"]));
 questionsAnswersPageCreator(questionsPreparer(questions["question3"]));
 questionsAnswersPageCreator(questionsPreparer(questions["question4"]));
 
-var myTime;
-var currentArticle = 0 ;
-var score= 0;
-var articleCount = document.querySelectorAll("article").length-2;
-var scores = {};
-var user;
-var previousScoreKey = "";
-var previousScore = 0 ;
+var myTime; //this stores the timer object
+var currentArticle = 0 ; //this is the start page
+var score= 0;  //score
+//to get the number of pages that have questions, -2 were substracted which are the last two pages
+var articleCount = document.querySelectorAll("article").length-2; 
+var user;  //this is to store the user initials
+
+
 document.getElementById("formSubmittion").addEventListener("click", function(event){
     event.preventDefault();
-    // const user = {
-    //     user: document.getElementById("initials").value,
-    //     hisscore: score
-    // }
-    // scores = {user:hisscore};
+   
     user = document.getElementById("initials").value;
-    scores[user]= score;
-    localStorage.setItem(user,score);
-    for (let index = 0; index < localStorage.length; index++) {
-           var key = localStorage.key(index);
-           var value = localStorage[key];
-           if(previousScoreKey == ""){
-               key = previousScoreKey;
-               previousScore = value
-           }
-           else{
-               
 
-           }
-           document.getElementById("scoreDisplay").innerHTML = key +"-"+value;
-    }
+    localStorage.setItem(user,score);
+     for (let index = 0; index < localStorage.length; index++) {
+    var list = document.createElement('li');
+    list.innerHTML = localStorage.key(index)+"-"+localStorage[localStorage.key(index)];
+    document.querySelector("#scoreDisplay").appendChild(list);}
+    
 
     document.getElementById("scoreDisplay").innerHTML = localStorage.getItem()});
 
-//this function gets 
+//hider function that moves from current to next page 
 function hider(currentArticle){
     document.querySelector("section").children[currentArticle].style.display = "none";
     document.querySelector("section").children[currentArticle+1].style.display = "block";
     
 }
+
 const wrapper = document.querySelectorAll("button");
 wrapper.forEach(button=>{button.addEventListener('click', function(event){
     if(event.target.id=='startquiz'){
-        myTime = myTimer(60,gameOver);
         hider(currentArticle);
-        currentArticle++; }
+        myTime = myTimer(60,gameOver);
+        currentArticle++; 
+
+        //to remove list of high scores
+        let element = document.getElementById("scoreDisplay");
+       while (element.firstChild) {
+       element.removeChild(element.firstChild);
+}
+    }
 
     else if(event.target.id=='scoresClear'){
         localStorage.clear();
+        let element = document.getElementById("scoreDisplay");
+        while (element.firstChild) {
+        element.removeChild(element.firstChild);
+ }
+        
     }
 
-
+//if go back button is pressed
     else if(event.target.id == 'reset'){
         myTime="0";
         currentArticle = 0;
@@ -116,6 +119,9 @@ function myTimer(mySeconds,functionToBeRepeated){
         },1000);
         return decrementSeconds;
     }
+
+    //function gamerover that keeps checking if timer reaches 0 or all pages(articles) that have
+    //questions finish(2 were substracted from article count to know where the user finish)
 function gameOver(){
         if(document.querySelector("#timer").innerHTML <= 0 || 
           currentArticle == articleCount)
@@ -155,7 +161,6 @@ function gameOver(){
             return questionsAnswers;
         }
         
-        //function to hide an html element based on id name
         
         
         //function to create a page for the questions and answers,

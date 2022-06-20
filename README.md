@@ -24,3 +24,12 @@ e)hider function that hides the current article and displays the next article. T
 All buttons were wrapped and then an event listener of click is linked to them.
 If the first button that is start quiz is clicked, the timer is fired with the game over function, so the time keeps decreasing by seconds and the gameOver function keeps checking if timer gets to 0 or the program reached the end of the questions. gameOver function then resets the timer to 0 and moves the program to the game finish article.
 
+All buttons have been wrapped to be able to add event listerner to them all
+
+then, it checks whats the button id
+a) if it is the start button, then timer is activated and the hider function is fired as well to move to the next page.
+b)if the clear score button, the local storage is cleared
+c)if go back button is pressed, timer and current article are resetted.
+d)Otherwise, will check the button value, if correct will display correct and increase score by 10 and if wrong, will decrease timer by 10 second.
+
+All scores with the initials are to be added to local storage and in the high score page, an iterator over keys is used to create a list item and put it under the high score text.
