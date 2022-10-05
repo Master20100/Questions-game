@@ -1,4 +1,4 @@
-# Assignment_4
+# Questions game
 My program html is divided into 
 a)a header that has the highscore tab and timer that has the time.
 b)A section which has many articles.
