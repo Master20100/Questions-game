@@ -55,12 +55,12 @@ function hider(currentArticle){
 const wrapper = document.querySelectorAll("button");
 wrapper.forEach(button=>{button.addEventListener('click', function(event){
     if(event.target.id=='startquiz'){
-        hider(currentArticle);
         myTime = myTimer(60,gameOver);
+        hider(currentArticle);
         currentArticle++; 
 
         //to remove list of high scores
-        let element = document.getElementById("scoreDisplay");
+        var element = document.getElementById("scoreDisplay");
        while (element.firstChild) {
        element.removeChild(element.firstChild);
 }

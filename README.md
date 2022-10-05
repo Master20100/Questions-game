@@ -33,3 +33,6 @@ c)if go back button is pressed, timer and current article are resetted.
 d)Otherwise, will check the button value, if correct will display correct and increase score by 10 and if wrong, will decrease timer by 10 second.
 
 All scores with the initials are to be added to local storage and in the high score page, an iterator over keys is used to create a list item and put it under the high score text.
+
+github link : https://github.com/Master20100/Questions-game
+live link : https://master20100.github.io/Questions-game/
